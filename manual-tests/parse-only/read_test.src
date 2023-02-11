@@ -1,4 +1,4 @@
-.IPPcode22  # nacteni vstupu a vypis
+.IPPcode23  # nacteni vstupu a vypis
 DEFVAR GF@a
 READ GF@a int
 WRITE GF@a

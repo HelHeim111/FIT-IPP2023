@@ -29,10 +29,11 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
     if(!$header) {
         if($splitted_line_spaces[0] == ".IPPcode23") {
             $header = true;
-            echo ("<program language=\"IPPcode22\">\n");
+            echo ("<program language=\"IPPcode23\">\n");
             continue;
         }
         else {
+                echo("hi\n");
             exit(21);
         }
     }
@@ -100,6 +101,9 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
                     case 'string':
                         if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
                             echo ("\t\t<arg1 type=\"string\">" . $splitted_const[1] . "</arg1>\n");
                             break;
                         }
@@ -161,6 +165,9 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
                     case 'string':
                         if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
                             echo ("\t\t<arg2 type=\"string\">" . $splitted_const[1] . "</arg2>\n");
                             break;
                         }
@@ -226,6 +233,9 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 switch($splitted_const[0]) {
                     case 'string':
                         if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
                             echo ("\t\t<arg2 type=\"string\">" . $splitted_const[1] . "</arg2>\n");
                             break;
                         }
@@ -289,6 +299,9 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
                     case 'string':
                         if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
                             echo ("\t\t<arg2 type=\"string\">" . $splitted_const[1] . "</arg2>\n");
                             break;
                         }
@@ -337,6 +350,9 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
                     case 'string':
                         if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
                             echo ("\t\t<arg3 type=\"string\">" . $splitted_const[1] . "</arg3>\n");
                             break;
                         }
@@ -448,6 +464,9 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
                     case 'string':
                         if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
                             echo ("\t\t<arg2 type=\"string\">" . $splitted_const[1] . "</arg2>\n");
                             break;
                         }
@@ -487,6 +506,9 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
                     case 'string':
                         if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
                             echo ("\t\t<arg3 type=\"string\">" . $splitted_const[1] . "</arg3>\n");
                             break;
                         }
@@ -505,6 +527,283 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
         case 'AND':
         case 'OR':
+            echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
+            else {
+                exit(23);
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+                echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[2], 2);
+
+                switch($splitted_const[0]) {
+                    case 'bool':
+                        if(!strcmp($splitted_const[1], "true") || !strcmp($splitted_const[1], "false")) {
+                            echo ("\t\t<arg2 type=\"bool\">" . $splitted_const[1] . "</arg2>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+                echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[3], 2);
+
+                switch($splitted_const[0]) {
+                    case 'bool':
+                        if(!strcmp($splitted_const[1], "true") || !strcmp($splitted_const[1], "false")) {
+                            echo ("\t\t<arg3 type=\"bool\">" . $splitted_const[1] . "</arg3>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            echo ("\t</instruction>\n");
+            break;
+
+        case 'NOT':
+            echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
+            else {
+                exit(23);
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+                echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[2], 2);
+
+                switch($splitted_const[0]) {
+                    case 'bool':
+                        if(!strcmp($splitted_const[1], "true") || !strcmp($splitted_const[1], "false")) {
+                            echo ("\t\t<arg2 type=\"bool\">" . $splitted_const[1] . "</arg2>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+                    default:
+                        exit(23);
+                }
+            }
+
+        case 'STR2INT':
+        case 'GETCHAR':
+            echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
+            else {
+                exit(23);
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+                echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[2], 2);
+
+                switch($splitted_const[0]) {
+                    case 'string':
+                        if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
+                            echo ("\t\t<arg2 type=\"string\">" . $splitted_const[1] . "</arg2>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+                echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[3], 2);
+
+                switch($splitted_const[0]) {
+
+                    case 'int':
+                        if(preg_match("/[0-9][0-9]*/", $splitted_const[1])){
+                            echo ("\t\t<arg3 type=\"int\">" . $splitted_const[1] . "</arg3>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            echo ("\t</instruction>\n");
+            break;
+
+        case 'READ':
+            echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
+            else {
+                exit(23);
+            }
+
+            if($splitted_line_spaces[2] == "int" || $splitted_line_spaces[2] == "string" || $splitted_line_spaces[2] == "bool") {
+                echo ("\t\t<arg2 type=\"type\">" . $splitted_line_spaces[2] . "</arg2>\n");
+            }
+            else {
+                exit(23);
+            }
+
+            echo ("\t</instruction>\n");
+            break;
+
+        case 'CONCAT':
+            echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
+            else {
+                exit(23);
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+                echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[2], 2);
+
+                switch($splitted_const[0]) {
+                    case 'string':
+                        if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
+                            echo ("\t\t<arg2 type=\"string\">" . $splitted_const[1] . "</arg2>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+                echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[3], 2);
+
+                switch($splitted_const[0]) {
+                    case 'int':
+                        if(preg_match("/[0-9][0-9]*/", $splitted_const[1])){
+                            echo ("\t\t<arg3 type=\"int\">" . $splitted_const[1] . "</arg3>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            echo ("\t</instruction>\n");
+            break;
+            
+        case 'SETCHAR':
+            echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
+            else {
+                exit(23);
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+                echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[2], 2);
+
+                switch($splitted_const[0]) {
+
+                    case 'int':
+                        if(preg_match("/[0-9][0-9]*/", $splitted_const[1])){
+                            echo ("\t\t<arg2 type=\"int\">" . $splitted_const[1] . "</arg2>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+                echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
+            }
+            else {
+                $splitted_const = explode('@', $splitted_line_spaces[3], 2);
+
+                switch($splitted_const[0]) {
+                    case 'string':
+                        if(preg_match("/(\\[0-9][0-9][0-9]|[0-9a-zA-Z!@%^&?\/])*/", $splitted_const[1])){
+                            $splitted_const[1] = preg_replace("/&/","&amp;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/</","&lt;",$splitted_const[1]);
+                            $splitted_const[1] = preg_replace("/>/","&gt;",$splitted_const[1]);
+                            echo ("\t\t<arg3 type=\"string\">" . $splitted_const[1] . "</arg3>\n");
+                            break;
+                        }
+                        else {
+                            exit(23);
+                        }
+
+                    default:
+                        exit(23);
+                }
+            }
+
+            echo ("\t</instruction>\n");
+            break;
 
         default:
             exit(22);
