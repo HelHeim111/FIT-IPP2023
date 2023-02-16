@@ -51,7 +51,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'DEFVAR':
         case 'POPS':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
@@ -65,7 +65,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'WRITE':
         case 'DPRINT':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
@@ -122,14 +122,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'TYPE':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
             
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -185,14 +185,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'INT2CHAR':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
             
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -217,14 +217,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'STRLEN':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
             
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -254,16 +254,20 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'LABEL':
         case 'JUMP':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            echo ("\t\t<arg1 type=\"label\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            if(preg_match("/\A[a-zA-Z_\-$&%*!?][a-zA-Z_\-$&%*!?0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"label\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
             echo ("\t</instruction>\n");
             break;
 
         case 'JUMPIFEQ':
         case 'JUMPIFNEQ':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            echo ("\t\t<arg1 type=\"label\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            if(preg_match("/\A[a-zA-Z_\-$&%*!?][a-zA-Z_\-$&%*!?0-9]*/", $splitted_line_spaces[1])){
+                echo ("\t\t<arg1 type=\"label\">" . $splitted_line_spaces[1] . "</arg1>\n");
+            }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -314,7 +318,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 }
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[3])){
                 echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
             }
             else {
@@ -373,7 +377,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'MUL':
         case 'IDIV':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
@@ -381,7 +385,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
             }
 
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -402,7 +406,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 }
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[3])){
                 echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
             }
             else {
@@ -430,14 +434,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'GT':
         case 'EQ':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -479,7 +483,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 }
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[3])){
                 echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
             }
             else {
@@ -528,14 +532,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'AND':
         case 'OR':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -556,7 +560,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 }
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[3])){
                 echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
             }
             else {
@@ -582,14 +586,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
         case 'NOT':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -613,14 +617,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
         case 'STR2INT':
         case 'GETCHAR':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%\-*?!][a-zA-Z_$%*?\-!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -644,7 +648,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 }
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$\-%*?!][a-zA-Z_$%\-*?!0-9]*/", $splitted_line_spaces[3])){
                 echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
             }
             else {
@@ -672,7 +676,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
         case 'READ':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
@@ -691,14 +695,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
 
         case 'CONCAT':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*?!0\--9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%\-*?!][a-zA-Z_$%*?\-!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -722,7 +726,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 }
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*\-?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[3])){
                 echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
             }
             else {
@@ -748,14 +752,14 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
             
         case 'SETCHAR':
             echo ("\t<instruction order=\"" . $order . "\" opcode=\"" . strtoupper($splitted_line_spaces[0]) . "\">\n");
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[1])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%\-*?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[1])){
                 echo ("\t\t<arg1 type=\"var\">" . $splitted_line_spaces[1] . "</arg1>\n");
             }
             else {
                 exit(23);
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[2])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%\-*?!][a-zA-Z_$%\-*?!0-9]*/", $splitted_line_spaces[2])){
                 echo ("\t\t<arg2 type=\"var\">" . $splitted_line_spaces[2] . "</arg2>\n");
             }
             else {
@@ -778,7 +782,7 @@ for ($order = 0; $line = fgets(STDIN); $order++) {
                 }
             }
 
-            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%*?!][a-zA-Z_$%*?!0-9]*/", $splitted_line_spaces[3])){
+            if(preg_match("/(LF|GF|TF)@[a-zA-Z_$%\-*?!][a-zA-Z_$%*\-?!0-9]*/", $splitted_line_spaces[3])){
                 echo ("\t\t<arg3 type=\"var\">" . $splitted_line_spaces[3] . "</arg3>\n");
             }
             else {
