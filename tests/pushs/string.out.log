@@ -1,0 +1,8 @@
+[Fatal Error] out.xml:4:26:The element type "arg2" must be terminated by the matching end-tag "</arg2>".
+org.xml.sax.SAXParseException; systemId: file:///home/helheim/FIT/FIT-IPP2023/tmp/out.xml; lineNumber: 4; columnNumber: 26; The element type "arg2" must be terminated by the matching end-tag "</arg2>".
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1251)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:637)
+	at com.a7soft.examxml.ExamXMLHandler.loadXML(ExamXMLHandler.java:111)
+	at com.a7soft.examxml.ExamXML.loadXML(ExamXML.java:247)
+	at com.a7soft.examxml.ExamXML.compare(ExamXML.java:213)
+	at com.a7soft.examxml.ExamXML.main(ExamXML.java:383)
