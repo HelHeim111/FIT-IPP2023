@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @brief Сontrols the correctness of the written constant. 
+ * If an error occures, program exits with the value 23.
+ * 
+ * @param $splitted_const
+ * 
+ */
 function CheckConst($splitted_const){
     switch($splitted_const[0]) {
         case 'bool':
@@ -50,14 +57,21 @@ function CheckConst($splitted_const){
             exit(23);
         }
 }
+
+/**
+ * @brief Contains data of one instruction.
+ * All methods are checking for possible lexical or syntaxis errors depending on arguments the instruction has.
+ * If such errors occure, program exits, if everything is ok, function prints out xml code
+ */
 class Line {
-    public $func_name;
-    public $arg1;
-    public $arg2;
-    public $arg3;
-    public $number;
-    public $order;
+    public $func_name;  //name of instruction
+    public $arg1;       //first argument
+    public $arg2;       //second argument
+    public $arg3;       //third argument
+    public $number;     //number of arguments
+    public $order;      //order of instruction
     
+    //instruction
     public function ConveratationNoArgs() {
         if($this->number !== 1) {
             exit(23);
@@ -66,6 +80,7 @@ class Line {
         echo ("\t</instruction>\n");
     }
 
+    //instruction <var>
     public function ConveratationVar() {
         if($this->number !== 2) {
             exit(23);
@@ -80,6 +95,7 @@ class Line {
         echo ("\t</instruction>\n");
     }
 
+    //instruction <symb>
     public function ConveratationSymb() {
         if($this->number !== 2) {
             exit(23);
@@ -96,6 +112,7 @@ class Line {
         echo ("\t</instruction>\n");
     }
 
+    //instruction <var> <symb>
     public function ConveratationVarSymb() {
         if($this->number !== 3) {
             exit(23);
@@ -120,6 +137,7 @@ class Line {
         echo ("\t</instruction>\n");
     }
 
+    //instruction <var> <symb> <symb>
     public function ConveratationVarSymbSymb() {
         if($this->number !== 4) {
             exit(23);
@@ -153,6 +171,7 @@ class Line {
         echo ("\t</instruction>\n");
     }
 
+    //instruction <label>
     public function ConveratationLabel() {
         if($this->number !== 2) {
             exit(23);
@@ -170,6 +189,7 @@ class Line {
         echo ("\t</instruction>\n");
     }
 
+    //instruction <label> <symb> <symb>
     public function ConveratationLabelSymbSymb() {
         if($this->number !== 4) {
             exit(23);
@@ -203,6 +223,7 @@ class Line {
         echo ("\t</instruction>\n");
     }
 
+    //instruction <var> <stype>
     public function ConveratationVarType() {
         if($this->number !== 3) {
             exit(23);
@@ -230,18 +251,14 @@ class Line {
 
 ini_set('display_errors', 'stderr');
 
-/*if ($argc > 1) {
-    if($argv[1] == "--help") {
-        if($argc > 2) {
-            exit(10);
-        }
-        echo("Usage: parse.php [options] <inputFileName\n");
-        exit(0);
+
+if($argv[1] == "--help") {
+    if($argc > 2) {
+         exit(10);
     }
-    else {
-        exit(10);
-    }
-}*/
+    echo("Usage: parse.php [options] <inputFileName\n");
+}
+
 
 $header = false;
 $order = 1;
@@ -264,7 +281,7 @@ for ($i = 0; $line = fgets(STDIN); $i++) {
     $splitted_line_spaces = preg_replace("/&/","&amp;",$splitted_line_spaces);
     $splitted_line_spaces = preg_replace("/</","&lt;",$splitted_line_spaces);
     $splitted_line_spaces = preg_replace("/>/","&gt;",$splitted_line_spaces);
-
+    //control for header
     if(!$header) {
         if($splitted_line_spaces[0] == ".IPPcode23") {
             $header = true;
@@ -275,7 +292,7 @@ for ($i = 0; $line = fgets(STDIN); $i++) {
             exit(21);
         }
     }
-    
+    //initializing class object
     $filteredLine = new Line();
     $filteredLine->func_name = $splitted_line_spaces[0];
     $filteredLine->order = $order;

@@ -1,0 +1,39 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage{times}
+\usepackage[left=1.6cm, top=1.5cm, text={18cm, 24.7cm}]{geometry}
+
+\title{Implementační dokumentace k 1. úloze do IPP 2022/2023}
+\author{Jméno a příjmení: Denys Petrovskyi\\ Login: xpetro27}
+\date{}
+
+\begin{document}
+
+\maketitle
+\section{Introduction}
+
+Parse.php provides lexical and syntaxis analysis of the language IPPcode23, which is read from stdin.
+The program returns XML code to stdout.
+
+\section{Implementation procedure}
+To implement a parser, I followed the next plan:
+
+\begin{itemize}
+    \item \textbf{Processing the arguments:} my parse.php supports only one argument which is \verb|--help|,
+    this command prints out the usage of parser.
+    \item \textbf{Processing the line:} for this purpose a loop is added, which runs until data from stdin ends.
+    Each iteration new line of IPPcode23 is being written to the variable \verb|$line|. If on first iteration of the loop
+    is not header, the program ends with error, there is a variable for that is called \verb|$header|, it is boolean
+    and after header was read it becomes \emph{true}.
+    \par After line is read, it gets cleard from all comments by using function \verb|str_split()| and \verb|explode()|.
+    Also all the problematic characters in XML \verb|('<', '>', '&')| are being replaced by \verb|('&lt;', '&gt;', '&amp;')|.
+    Using the same function \verb|explode()| instruction gets seperated from it arguments.
+    \item \textbf{Printing out XML code:} after line is splitted the new object of class \verb|Line| is created.
+    By using it methods instructions are being checked for lexical and sytaxis errors with regular expresions and function \verb|preg_match()|
+    and then XML code is being printed out. Usage of certain method depends on arguments the instruction has.
+    In \verb|switch()| all the instructions are divided into groups to which a certain method belongs.
+    After all the input code is processed the program ends.
+
+\end{itemize}
+
+\end{document}
