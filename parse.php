@@ -251,12 +251,14 @@ class Line {
 
 ini_set('display_errors', 'stderr');
 
-
-if($argv[1] == "--help") {
-    if($argc > 2) {
-         exit(10);
+if($argc == 2){
+    if($argv[1] == "--help") {
+        if($argc > 2) {
+            exit(10);
+        }
+        echo("Usage: parse.php [options] <inputFileName\n");
+        exit(0);
     }
-    echo("Usage: parse.php [options] <inputFileName\n");
 }
 
 
